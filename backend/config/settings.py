@@ -5,7 +5,7 @@ Supports:
 - Local development
 - Render deployment
 - Neon PostgreSQL
-- Vercel React frontend
+- Netlify React frontend
 """
 
 from pathlib import Path
@@ -37,10 +37,7 @@ SECRET_KEY = os.environ.get(
 # ============================================================
 
 DEBUG = (
-    os.environ.get(
-        "DEBUG",
-        "True"
-    )
+    os.environ.get("DEBUG", "True")
     .strip()
     .lower()
     == "true"
@@ -55,7 +52,7 @@ ALLOWED_HOSTS = [
     host.strip()
     for host in os.environ.get(
         "ALLOWED_HOSTS",
-        "localhost,127.0.0.1"
+        "localhost,127.0.0.1,ecosmart-project.onrender.com"
     ).split(",")
     if host.strip()
 ]
@@ -102,10 +99,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MIDDLEWARE = [
 
+    # CORS MUST BE AT THE TOP
     "corsheaders.middleware.CorsMiddleware",
 
     "django.middleware.security.SecurityMiddleware",
 
+    # WhiteNoise
     "whitenoise.middleware.WhiteNoiseMiddleware",
 
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -169,20 +168,18 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 
 if DATABASE_URL:
 
+    # Render / Neon PostgreSQL
     DATABASES = {
-
         "default": dj_database_url.parse(
-
             DATABASE_URL,
-
             conn_max_age=600,
-
             ssl_require=True,
         )
     }
 
 else:
 
+    # Local PostgreSQL
     DATABASES = {
 
         "default": {
@@ -293,16 +290,25 @@ REST_FRAMEWORK = {
 # CORS
 # ============================================================
 
+# Local + deployed frontend
 CORS_ALLOWED_ORIGINS = [
+
+    "http://localhost:5173",
+
+    "http://127.0.0.1:5173",
+
+    "https://ecosmart-project.netlify.app",
+]
+
+
+# Additional origins from Render Environment Variable
+CORS_ALLOWED_ORIGINS += [
 
     origin.strip()
 
     for origin in os.environ.get(
-
         "CORS_ALLOWED_ORIGINS",
-
-        "http://localhost:5173"
-
+        ""
     ).split(",")
 
     if origin.strip()
@@ -315,14 +321,22 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = [
 
+    "http://localhost:5173",
+
+    "http://127.0.0.1:5173",
+
+    "https://ecosmart-project.netlify.app",
+]
+
+
+# Additional CSRF origins from Render Environment Variable
+CSRF_TRUSTED_ORIGINS += [
+
     origin.strip()
 
     for origin in os.environ.get(
-
         "CSRF_TRUSTED_ORIGINS",
-
-        "http://localhost:5173"
-
+        ""
     ).split(",")
 
     if origin.strip()
@@ -408,10 +422,24 @@ if not DEBUG:
 
 else:
 
-    # Local development MUST remain HTTP
+    # Local development uses HTTP
 
     SECURE_SSL_REDIRECT = False
 
     SESSION_COOKIE_SECURE = False
 
     CSRF_COOKIE_SECURE = False
+
+
+# ============================================================
+# CORS OPTIONS
+# ============================================================
+
+CORS_ALLOW_CREDENTIALS = True
+
+
+# ============================================================
+# X-FRAME OPTIONS
+# ============================================================
+
+X_FRAME_OPTIONS = "DENY"
