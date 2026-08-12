@@ -39,7 +39,7 @@ function UserDashboard() {
 
       const response = await axios.get(
 
-        "http://127.0.0.1:8000/api/dashboard/user/dashboard/",
+        "https://ecosmart-project.onrender.com/api/dashboard/user/dashboard/",
 
         {
 
@@ -511,7 +511,7 @@ function UserDashboard() {
                   <img
 
                     src={
-                      `http://127.0.0.1:8000${scan.image}`
+                      `https://ecosmart-project.onrender.com${scan.image}`
                     }
 
                     className="w-24 h-24 object-cover rounded-lg"

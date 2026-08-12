@@ -41,7 +41,7 @@ function StaffProfile() {
 
             const res = await axios.get(
 
-                "http://127.0.0.1:8000/api/accounts/profile/",
+                "https://ecosmart-project.onrender.com/api/accounts/profile/",
 
                 {
                     headers:{
@@ -202,7 +202,7 @@ function StaffProfile() {
 
             await axios.patch(
 
-                "http://127.0.0.1:8000/api/accounts/profile/",
+                "https://ecosmart-project.onrender.com/api/accounts/profile/",
 
                 data,
 
@@ -345,7 +345,7 @@ function StaffProfile() {
 
                                 ?
 
-                                `http://127.0.0.1:8000${profile.profile_image}`
+                                `https://ecosmart-project.onrender.com${profile.profile_image}`
 
                                 :
 

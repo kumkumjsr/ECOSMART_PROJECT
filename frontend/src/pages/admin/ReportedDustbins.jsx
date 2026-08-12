@@ -48,7 +48,7 @@ function ReportedDustbins() {
 
             const response = await axios.get(
 
-                "http://127.0.0.1:8000/api/dustbins/reported/",
+                "https://ecosmart-project.onrender.com/api/dustbins/reported/",
 
                 {
 
@@ -107,7 +107,7 @@ function ReportedDustbins() {
 
             const response = await axios.get(
 
-                "http://127.0.0.1:8000/api/employees/available/",
+                "https://ecosmart-project.onrender.com/api/employees/available/",
 
                 {
 
@@ -196,7 +196,7 @@ function ReportedDustbins() {
             const response = await axios.post(
 
 
-                "http://127.0.0.1:8000/api/tasks/create/",
+                "https://ecosmart-project.onrender.com/api/tasks/create/",
 
 
                 {
@@ -592,3 +592,4 @@ function ReportedDustbins() {
 
 
 export default ReportedDustbins;
+

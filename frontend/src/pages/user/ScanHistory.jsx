@@ -37,7 +37,7 @@ function ScanHistory() {
 
             const response = await axios.get(
 
-                "http://127.0.0.1:8000/api/waste/history/",
+                "https://ecosmart-project.onrender.com/api/waste/history/",
 
                 {
                     headers: {

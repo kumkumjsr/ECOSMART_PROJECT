@@ -1,4 +1,3 @@
-
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import {
@@ -38,7 +37,7 @@ function Salary() {
   const token = localStorage.getItem("access");
 
   const api = axios.create({
-    baseURL: "http://127.0.0.1:8000/api",
+    baseURL: "https://ecosmart-project.onrender.com/api",
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -148,21 +147,14 @@ function Salary() {
 
     try {
       if (editingId) {
-        await api.put(
-          `/accounts/salary/${editingId}/`,
-          form
-        );
+        await api.put(`/accounts/salary/${editingId}/`, form);
       } else {
-        await api.post(
-          "/accounts/salary/",
-          form
-        );
+        await api.post("/accounts/salary/", form);
       }
 
       setShowModal(false);
 
       fetchSalaries();
-
     } catch (error) {
       console.error("Salary save error:", error);
 
@@ -186,12 +178,9 @@ function Salary() {
     if (!confirmDelete) return;
 
     try {
-      await api.delete(
-        `/accounts/salary/${id}/`
-      );
+      await api.delete(`/accounts/salary/${id}/`);
 
       fetchSalaries();
-
     } catch (error) {
       console.error("Delete salary error:", error);
 
@@ -205,29 +194,21 @@ function Salary() {
 
   const markAsPaid = async (salary) => {
     try {
-      await api.put(
-        `/accounts/salary/${salary.id}/`,
-        {
-          staff: salary.staff,
-          month: salary.month,
-          year: salary.year,
-          basic_salary: salary.basic_salary,
-          allowance: salary.allowance,
-          deduction: salary.deduction,
-          payment_status: "PAID",
-          payment_date:
-            new Date().toISOString().split("T")[0],
-          notes: salary.notes || "",
-        }
-      );
+      await api.put(`/accounts/salary/${salary.id}/`, {
+        staff: salary.staff,
+        month: salary.month,
+        year: salary.year,
+        basic_salary: salary.basic_salary,
+        allowance: salary.allowance,
+        deduction: salary.deduction,
+        payment_status: "PAID",
+        payment_date: new Date().toISOString().split("T")[0],
+        notes: salary.notes || "",
+      });
 
       fetchSalaries();
-
     } catch (error) {
-      console.error(
-        "Mark paid error:",
-        error
-      );
+      console.error("Mark paid error:", error);
 
       alert("Unable to mark salary as paid.");
     }
@@ -240,22 +221,15 @@ function Salary() {
   const filteredSalaries = useMemo(() => {
     return salaries.filter((salary) => {
       const searchText =
-        `${salary.staff_name} ${salary.month} ${salary.year}`
-          .toLowerCase();
+        `${salary.staff_name} ${salary.month} ${salary.year}`.toLowerCase();
 
-      const matchesSearch =
-        searchText.includes(
-          search.toLowerCase()
-        );
+      const matchesSearch = searchText.includes(search.toLowerCase());
 
       const matchesStatus =
         statusFilter === "ALL" ||
         salary.payment_status === statusFilter;
 
-      return (
-        matchesSearch &&
-        matchesStatus
-      );
+      return matchesSearch && matchesStatus;
     });
   }, [salaries, search, statusFilter]);
 
@@ -264,42 +238,30 @@ function Salary() {
   // ==========================================
 
   const totalSalary = salaries.reduce(
-    (sum, salary) =>
-      sum + Number(salary.net_salary || 0),
+    (sum, salary) => sum + Number(salary.net_salary || 0),
     0
   );
 
   const pendingSalary = salaries
-    .filter(
-      (salary) =>
-        salary.payment_status === "PENDING"
-    )
+    .filter((salary) => salary.payment_status === "PENDING")
     .reduce(
-      (sum, salary) =>
-        sum + Number(salary.net_salary || 0),
+      (sum, salary) => sum + Number(salary.net_salary || 0),
       0
     );
 
   const paidSalary = salaries
-    .filter(
-      (salary) =>
-        salary.payment_status === "PAID"
-    )
+    .filter((salary) => salary.payment_status === "PAID")
     .reduce(
-      (sum, salary) =>
-        sum + Number(salary.net_salary || 0),
+      (sum, salary) => sum + Number(salary.net_salary || 0),
       0
     );
 
   const formatMoney = (amount) => {
-    return new Intl.NumberFormat(
-      "en-IN",
-      {
-        style: "currency",
-        currency: "INR",
-        maximumFractionDigits: 0,
-      }
-    ).format(amount);
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      maximumFractionDigits: 0,
+    }).format(amount);
   };
 
   // ==========================================
@@ -362,7 +324,6 @@ function Salary() {
 
         </div>
 
-
         <div className="bg-white rounded-xl shadow p-5 border">
 
           <div className="flex items-center justify-between">
@@ -387,7 +348,6 @@ function Salary() {
           </div>
 
         </div>
-
 
         <div className="bg-white rounded-xl shadow p-5 border">
 
@@ -432,9 +392,7 @@ function Salary() {
             <input
               type="text"
               value={search}
-              onChange={(e) =>
-                setSearch(e.target.value)
-              }
+              onChange={(e) => setSearch(e.target.value)}
               placeholder="Search staff..."
               className="w-full border rounded-lg pl-10 pr-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500"
             />
@@ -443,9 +401,7 @@ function Salary() {
 
           <select
             value={statusFilter}
-            onChange={(e) =>
-              setStatusFilter(e.target.value)
-            }
+            onChange={(e) => setStatusFilter(e.target.value)}
             className="border rounded-lg px-4 py-2.5"
           >
             <option value="ALL">
@@ -459,7 +415,6 @@ function Salary() {
             <option value="PAID">
               Paid
             </option>
-
           </select>
 
         </div>
@@ -528,137 +483,104 @@ function Salary() {
 
             <tbody>
 
-              {filteredSalaries.map(
-                (salary) => (
+              {filteredSalaries.map((salary) => (
 
-                  <tr
-                    key={salary.id}
-                    className="border-b hover:bg-gray-50"
-                  >
+                <tr
+                  key={salary.id}
+                  className="border-b hover:bg-gray-50"
+                >
 
-                    <td className="px-5 py-4">
+                  <td className="px-5 py-4">
 
-                      <p className="font-semibold">
-                        {salary.staff_name}
-                      </p>
+                    <p className="font-semibold">
+                      {salary.staff_name}
+                    </p>
 
-                      <p className="text-xs text-gray-500">
-                        {salary.staff_email}
-                      </p>
+                    <p className="text-xs text-gray-500">
+                      {salary.staff_email}
+                    </p>
 
-                    </td>
+                  </td>
 
-                    <td className="px-5 py-4">
-                      {salary.month}{" "}
-                      {salary.year}
-                    </td>
+                  <td className="px-5 py-4">
+                    {salary.month} {salary.year}
+                  </td>
 
-                    <td className="px-5 py-4">
-                      {formatMoney(
-                        salary.basic_salary
-                      )}
-                    </td>
+                  <td className="px-5 py-4">
+                    {formatMoney(salary.basic_salary)}
+                  </td>
 
-                    <td className="px-5 py-4 text-green-600">
-                      +{" "}
-                      {formatMoney(
-                        salary.allowance
-                      )}
-                    </td>
+                  <td className="px-5 py-4 text-green-600">
+                    + {formatMoney(salary.allowance)}
+                  </td>
 
-                    <td className="px-5 py-4 text-red-600">
-                      -{" "}
-                      {formatMoney(
-                        salary.deduction
-                      )}
-                    </td>
+                  <td className="px-5 py-4 text-red-600">
+                    - {formatMoney(salary.deduction)}
+                  </td>
 
-                    <td className="px-5 py-4 font-bold">
-                      {formatMoney(
-                        salary.net_salary
-                      )}
-                    </td>
+                  <td className="px-5 py-4 font-bold">
+                    {formatMoney(salary.net_salary)}
+                  </td>
 
-                    <td className="px-5 py-4">
+                  <td className="px-5 py-4">
 
-                      {salary.payment_status ===
-                      "PAID" ? (
+                    {salary.payment_status === "PAID" ? (
 
-                        <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
-                          <CheckCircle size={15} />
-                          Paid
-                        </span>
+                      <span className="inline-flex items-center gap-1 bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
+                        <CheckCircle size={15} />
+                        Paid
+                      </span>
 
-                      ) : (
+                    ) : (
 
-                        <span className="inline-flex items-center gap-1 bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">
-                          <Clock size={15} />
-                          Pending
-                        </span>
+                      <span className="inline-flex items-center gap-1 bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">
+                        <Clock size={15} />
+                        Pending
+                      </span>
 
-                      )}
+                    )}
 
-                    </td>
+                  </td>
 
-                    <td className="px-5 py-4">
+                  <td className="px-5 py-4">
 
-                      <div className="flex justify-center gap-2">
+                    <div className="flex justify-center gap-2">
 
-                        {salary.payment_status !==
-                          "PAID" && (
-
-                          <button
-                            onClick={() =>
-                              markAsPaid(
-                                salary
-                              )
-                            }
-                            title="Mark as Paid"
-                            className="p-2 rounded-lg bg-green-100 text-green-700 hover:bg-green-200"
-                          >
-                            <CheckCircle
-                              size={17}
-                            />
-                          </button>
-
-                        )}
+                      {salary.payment_status !== "PAID" && (
 
                         <button
-                          onClick={() =>
-                            openEditModal(
-                              salary
-                            )
-                          }
-                          title="Edit"
-                          className="p-2 rounded-lg bg-blue-100 text-blue-700 hover:bg-blue-200"
+                          onClick={() => markAsPaid(salary)}
+                          title="Mark as Paid"
+                          className="p-2 rounded-lg bg-green-100 text-green-700 hover:bg-green-200"
                         >
-                          <Pencil
-                            size={17}
-                          />
+                          <CheckCircle size={17} />
                         </button>
 
-                        <button
-                          onClick={() =>
-                            deleteSalary(
-                              salary.id
-                            )
-                          }
-                          title="Delete"
-                          className="p-2 rounded-lg bg-red-100 text-red-700 hover:bg-red-200"
-                        >
-                          <Trash2
-                            size={17}
-                          />
-                        </button>
+                      )}
 
-                      </div>
+                      <button
+                        onClick={() => openEditModal(salary)}
+                        title="Edit"
+                        className="p-2 rounded-lg bg-blue-100 text-blue-700 hover:bg-blue-200"
+                      >
+                        <Pencil size={17} />
+                      </button>
 
-                    </td>
+                      <button
+                        onClick={() => deleteSalary(salary.id)}
+                        title="Delete"
+                        className="p-2 rounded-lg bg-red-100 text-red-700 hover:bg-red-200"
+                      >
+                        <Trash2 size={17} />
+                      </button>
 
-                  </tr>
+                    </div>
 
-                )
-              )}
+                  </td>
+
+                </tr>
+
+              ))}
 
             </tbody>
 
@@ -681,9 +603,7 @@ function Salary() {
               <div>
 
                 <h2 className="text-xl font-bold">
-                  {editingId
-                    ? "Edit Salary"
-                    : "Add Salary"}
+                  {editingId ? "Edit Salary" : "Add Salary"}
                 </h2>
 
                 <p className="text-sm text-gray-500">
@@ -693,9 +613,7 @@ function Salary() {
               </div>
 
               <button
-                onClick={() =>
-                  setShowModal(false)
-                }
+                onClick={() => setShowModal(false)}
                 className="p-2 hover:bg-gray-100 rounded-full"
               >
                 <X size={22} />
@@ -949,15 +867,9 @@ function Salary() {
                 <p className="text-2xl font-bold text-green-700 mt-1">
 
                   {formatMoney(
-                    Number(
-                      form.basic_salary || 0
-                    ) +
-                      Number(
-                        form.allowance || 0
-                      ) -
-                      Number(
-                        form.deduction || 0
-                      )
+                    Number(form.basic_salary || 0) +
+                    Number(form.allowance || 0) -
+                    Number(form.deduction || 0)
                   )}
 
                 </p>
@@ -970,9 +882,7 @@ function Salary() {
 
                 <button
                   type="button"
-                  onClick={() =>
-                    setShowModal(false)
-                  }
+                  onClick={() => setShowModal(false)}
                   className="px-5 py-2.5 border rounded-lg hover:bg-gray-50"
                 >
                   Cancel
@@ -982,9 +892,7 @@ function Salary() {
                   type="submit"
                   className="px-5 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 font-semibold"
                 >
-                  {editingId
-                    ? "Update Salary"
-                    : "Save Salary"}
+                  {editingId ? "Update Salary" : "Save Salary"}
                 </button>
 
               </div>
@@ -1002,4 +910,3 @@ function Salary() {
 }
 
 export default Salary;
-

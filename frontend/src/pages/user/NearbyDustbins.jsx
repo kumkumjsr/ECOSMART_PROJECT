@@ -120,7 +120,7 @@ function NearbyDustbins() {
         try {
 
             const response = await axios.get(
-                "http://127.0.0.1:8000/api/dustbins/"
+                "https://ecosmart-project.onrender.com/api/dustbins/"
             );
 
 
@@ -185,7 +185,7 @@ function NearbyDustbins() {
         try {
 
             const response = await axios.get(
-                "http://127.0.0.1:8000/api/dustbins/"
+                "https://ecosmart-project.onrender.com/api/dustbins/"
             );
 
 
@@ -287,7 +287,7 @@ function NearbyDustbins() {
 
             await axios.post(
 
-                `http://127.0.0.1:8000/api/dustbins/${id}/report/`,
+                `https://ecosmart-project.onrender.com/api/dustbins/${id}/report/`,
 
                 {
                     status: "FULL",
@@ -933,3 +933,4 @@ function NearbyDustbins() {
 
 
 export default NearbyDustbins;
+

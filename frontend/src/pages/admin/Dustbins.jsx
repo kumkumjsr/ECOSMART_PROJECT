@@ -118,7 +118,7 @@ function Dustbins() {
 
             const response = await axios.get(
 
-                "http://127.0.0.1:8000/api/dustbins/",
+                "https://ecosmart-project.onrender.com/api/dustbins/",
 
                 {
                     headers: {
@@ -241,7 +241,7 @@ function Dustbins() {
 
             await axios.post(
 
-                "http://127.0.0.1:8000/api/dustbins/create/",
+                "https://ecosmart-project.onrender.com/api/dustbins/create/",
 
                 formData,
 

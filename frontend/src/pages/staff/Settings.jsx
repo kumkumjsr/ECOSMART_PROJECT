@@ -49,7 +49,7 @@ function StaffSettings(){
 
             const res = await axios.post(
 
-                "http://127.0.0.1:8000/api/accounts/change-password/",
+                "https://ecosmart-project.onrender.com/api/accounts/change-password/",
 
                 passwordData,
 
@@ -313,3 +313,4 @@ function StaffSettings(){
 
 
 export default StaffSettings;
+

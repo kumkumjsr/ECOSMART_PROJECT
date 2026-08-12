@@ -51,22 +51,22 @@ function Reports() {
         try {
 
             const summaryRes = await axios.get(
-                "http://127.0.0.1:8000/api/tasks/reports/",
+                "https://ecosmart-project.onrender.com/api/tasks/reports/",
                 { headers }
             );
 
             const staffRes = await axios.get(
-                "http://127.0.0.1:8000/api/tasks/reports/staff/",
+                "https://ecosmart-project.onrender.com/api/tasks/reports/staff/",
                 { headers }
             );
 
             const wasteRes = await axios.get(
-                "http://127.0.0.1:8000/api/tasks/reports/waste/",
+                "https://ecosmart-project.onrender.com/api/tasks/reports/waste/",
                 { headers }
             );
 
             const areaRes = await axios.get(
-                "http://127.0.0.1:8000/api/tasks/reports/area/",
+                "https://ecosmart-project.onrender.com/api/tasks/reports/area/",
                 { headers }
             );
 

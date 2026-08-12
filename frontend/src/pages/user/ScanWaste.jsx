@@ -144,7 +144,7 @@ function ScanWaste(){
             const response = await axios.post(
 
 
-                "http://127.0.0.1:8000/api/waste/scan/",
+                "https://ecosmart-project.onrender.com/api/waste/scan/",
 
 
                 formData,

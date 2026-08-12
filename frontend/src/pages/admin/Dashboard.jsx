@@ -54,7 +54,7 @@
 
 //             const response = await axios.get(
 
-//                 "http://127.0.0.1:8000/api/dashboard/admin/",
+//                 "https://ecosmart-project.onrender.com/api/dashboard/admin/",
 
 //                 {
 
@@ -809,7 +809,7 @@
 
 // const response = await axios.get(
 
-// "http://127.0.0.1:8000/api/tasks/admin/stats/",
+// "https://ecosmart-project.onrender.com/api/tasks/admin/stats/",
 
 // {
 
@@ -1101,7 +1101,7 @@ const token = localStorage.getItem("access");
 const response = await axios.get(
 
 
-"http://127.0.0.1:8000/api/dashboard/admin/",
+"https://ecosmart-project.onrender.com/api/dashboard/admin/",
 
 
 {
@@ -1162,7 +1162,7 @@ try{
 const response = await axios.get(
 
 
-"http://127.0.0.1:8000/api/tasks/admin/stats/",
+"https://ecosmart-project.onrender.com/api/tasks/admin/stats/",
 
 
 {
