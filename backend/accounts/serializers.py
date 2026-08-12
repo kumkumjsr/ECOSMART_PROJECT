@@ -50,26 +50,20 @@ class RegisterSerializer(serializers.ModelSerializer):
         if password != confirm_password:
 
             raise serializers.ValidationError({
-                "confirm_password":
-                    "Passwords do not match."
+                "confirm_password": "Passwords do not match."
             })
 
         return attrs
 
     def create(self, validated_data):
 
-        # Remove confirm password
         validated_data.pop(
             "confirm_password",
             None
         )
 
-        # Get password
-        password = validated_data.pop(
-            "password"
-        )
+        password = validated_data.pop("password")
 
-        # Create citizen user
         user = User.objects.create_user(
 
             username=validated_data["username"],
@@ -101,19 +95,11 @@ class RegisterSerializer(serializers.ModelSerializer):
             role=User.CITIZEN
         )
 
-        # IMPORTANT:
-        # Email sending removed from serializer.
-        #
-        # Render SMTP issue was causing
-        # registration to return 500.
-        #
-        # User account will be created normally.
-
         return user
 
 
 # =========================================================
-# JWT LOGIN SERIALIZER
+# JWT LOGIN
 # =========================================================
 
 class CustomTokenObtainPairSerializer(
@@ -126,15 +112,10 @@ class CustomTokenObtainPairSerializer(
         token = super().get_token(user)
 
         token["id"] = user.id
-
         token["username"] = user.username
-
         token["email"] = user.email
-
         token["role"] = user.role
-
         token["is_staff"] = user.is_staff
-
         token["is_superuser"] = user.is_superuser
 
         return token
@@ -144,23 +125,14 @@ class CustomTokenObtainPairSerializer(
         data = super().validate(attrs)
 
         data["id"] = self.user.id
-
         data["username"] = self.user.username
-
         data["email"] = self.user.email
-
         data["first_name"] = self.user.first_name
-
         data["last_name"] = self.user.last_name
-
         data["phone"] = self.user.phone
-
         data["address"] = self.user.address
-
         data["role"] = self.user.role
-
         data["is_staff"] = self.user.is_staff
-
         data["is_superuser"] = self.user.is_superuser
 
         return data
@@ -200,9 +172,7 @@ class CreateStaffSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
 
-        password = validated_data.pop(
-            "password"
-        )
+        password = validated_data.pop("password")
 
         staff = User.objects.create_user(
 
@@ -234,12 +204,6 @@ class CreateStaffSerializer(serializers.ModelSerializer):
 
             role=User.WORKER
         )
-
-        # IMPORTANT:
-        # Email sending removed here also.
-        #
-        # Staff creation should not fail
-        # because SMTP is unavailable on Render.
 
         return staff
 

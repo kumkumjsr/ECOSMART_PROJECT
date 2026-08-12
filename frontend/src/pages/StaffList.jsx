@@ -18,13 +18,11 @@ function StaffList() {
   }, []);
 
 
-
   const fetchStaff = async () => {
 
     try {
 
       const token = localStorage.getItem("access");
-
 
       const response = await axios.get(
 
@@ -38,11 +36,9 @@ function StaffList() {
 
       );
 
-
       setStaff(response.data);
 
-
-    } catch(error) {
+    } catch (error) {
 
       console.log(error);
 
@@ -51,52 +47,38 @@ function StaffList() {
   };
 
 
-
-
   const deleteStaff = async (id) => {
-
 
     const confirmDelete = window.confirm(
       "Are you sure you want to delete staff?"
     );
 
-
-    if(!confirmDelete)
+    if (!confirmDelete) {
       return;
-
+    }
 
 
     try {
 
-
       const token = localStorage.getItem("access");
-
-
 
       await axios.delete(
 
         `https://ecosmart-project.onrender.com/api/accounts/staff/${id}/delete/`,
 
         {
-
-          headers:{
-            Authorization:`Bearer ${token}`
-          }
-
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
 
       );
 
-
-
       alert("Staff Deleted Successfully");
-
 
       fetchStaff();
 
-
-
-    } catch(error){
+    } catch (error) {
 
       console.log(error);
 
@@ -104,31 +86,37 @@ function StaffList() {
 
     }
 
-
   };
-
-
-
 
 
   return (
 
     <DashboardLayout>
 
+      <div className="
+        bg-white
+        shadow-xl
+        rounded-2xl
+        p-6
+        overflow-x-auto
+      ">
 
-      <div className="bg-white shadow-xl rounded-2xl p-6">
-
-
-        <h2 className="text-3xl font-bold text-green-700 mb-6">
+        <h2 className="
+          text-3xl
+          font-bold
+          text-green-700
+          mb-6
+        ">
           👷 Staff List
         </h2>
 
 
-
         <table className="w-full border">
 
-
-          <thead className="bg-green-600 text-white">
+          <thead className="
+            bg-green-600
+            text-white
+          ">
 
             <tr>
 
@@ -136,141 +124,167 @@ function StaffList() {
                 Name
               </th>
 
-
               <th className="p-3">
                 Username
               </th>
-
 
               <th className="p-3">
                 Email
               </th>
 
-
               <th className="p-3">
                 Phone
               </th>
 
+              <th className="p-3">
+                Location
+              </th>
 
               <th className="p-3">
                 Role
               </th>
 
-
               <th className="p-3">
                 Action
               </th>
 
-
             </tr>
-
 
           </thead>
 
 
-
           <tbody>
 
+            {staff.length === 0 ? (
 
-          {
-            staff.map((item)=>(
+              <tr>
 
-
-              <tr
-                key={item.id}
-                className="border-b hover:bg-gray-100"
-              >
-
-
-                <td className="p-3">
-
-                  {item.first_name} {item.last_name}
-
+                <td
+                  colSpan="7"
+                  className="
+                    p-6
+                    text-center
+                    text-gray-500
+                  "
+                >
+                  No staff found
                 </td>
-
-
-                <td className="p-3">
-
-                  {item.username}
-
-                </td>
-
-
-                <td className="p-3">
-
-                  {item.email}
-
-                </td>
-
-
-                <td className="p-3">
-
-                  {item.phone}
-
-                </td>
-
-
-
-                <td className="p-3">
-
-                  {item.role}
-
-                </td>
-
-
-
-                <td className="p-3 space-x-2">
-
-
-                  <button
-
-                    onClick={()=>navigate(`/edit-staff/${item.id}`)}
-
-                    className="bg-blue-600 text-white px-3 py-2 rounded"
-
-                  >
-
-                    Edit
-
-                  </button>
-
-
-
-                  <button
-
-                    onClick={()=>deleteStaff(item.id)}
-
-                    className="bg-red-600 text-white px-3 py-2 rounded"
-
-                  >
-
-                    Delete
-
-                  </button>
-
-
-                </td>
-
-
 
               </tr>
 
+            ) : (
 
-            ))
-          }
+              staff.map((item) => (
 
+                <tr
+                  key={item.id}
+                  className="
+                    border-b
+                    hover:bg-gray-100
+                  "
+                >
+
+                  <td className="p-3">
+
+                    {item.first_name}{" "}
+                    {item.last_name}
+
+                  </td>
+
+
+                  <td className="p-3">
+
+                    {item.username}
+
+                  </td>
+
+
+                  <td className="p-3">
+
+                    {item.email}
+
+                  </td>
+
+
+                  <td className="p-3">
+
+                    {item.phone || "-"}
+
+                  </td>
+
+
+                  {/* ⭐ LOCATION */}
+
+                  <td className="p-3">
+
+                    {item.location || "-"}
+
+                  </td>
+
+
+                  <td className="p-3">
+
+                    {item.role}
+
+                  </td>
+
+
+                  <td className="
+                    p-3
+                    space-x-2
+                    whitespace-nowrap
+                  ">
+
+                    <button
+                      onClick={() =>
+                        navigate(
+                          `/admin/staff/edit/${item.id}`
+                        )
+                      }
+                      className="
+                        bg-blue-600
+                        hover:bg-blue-700
+                        text-white
+                        px-3
+                        py-2
+                        rounded
+                      "
+                    >
+                      Edit
+                    </button>
+
+
+                    <button
+                      onClick={() =>
+                        deleteStaff(item.id)
+                      }
+                      className="
+                        bg-red-600
+                        hover:bg-red-700
+                        text-white
+                        px-3
+                        py-2
+                        rounded
+                      "
+                    >
+                      Delete
+                    </button>
+
+                  </td>
+
+                </tr>
+
+              ))
+
+            )}
 
           </tbody>
 
-
         </table>
-
 
       </div>
 
-
     </DashboardLayout>
-
 
   );
 

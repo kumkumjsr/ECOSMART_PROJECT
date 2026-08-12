@@ -1,178 +1,332 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DashboardLayout from "../layouts/DashboardLayout";
+
 
 function EditStaff() {
 
-    const { id } = useParams();
-    const navigate = useNavigate();
+  const { id } = useParams();
 
-    const [staff, setStaff] = useState({
-        username: "",
-        email: "",
-        first_name: "",
-        last_name: "",
-        phone: "",
-        address: ""
+  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    first_name: "",
+    last_name: "",
+    phone: "",
+    address: "",
+    location: "",
+  });
+
+
+  useEffect(() => {
+
+    fetchStaff();
+
+  }, [id]);
+
+
+  const fetchStaff = async () => {
+
+    try {
+
+      const token = localStorage.getItem("access");
+
+      const response = await axios.get(
+
+        `https://ecosmart-project.onrender.com/api/accounts/staff/${id}/update/`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+
+      );
+
+      const data = response.data;
+
+      setFormData({
+        username: data.username || "",
+        email: data.email || "",
+        password: "",
+        first_name: data.first_name || "",
+        last_name: data.last_name || "",
+        phone: data.phone || "",
+        address: data.address || "",
+        location: data.location || "",
+      });
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert("Failed to load staff");
+
+    }
+
+  };
+
+
+  const handleChange = (e) => {
+
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
     });
 
-    useEffect(() => {
-        fetchStaff();
-    }, []);
+  };
 
-    const fetchStaff = async () => {
-        try {
 
-            const token = localStorage.getItem("access");
+  const handleSubmit = async (e) => {
 
-            const response = await axios.get(
-                "https://ecosmart-project.onrender.com/api/accounts/staff/",
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
+    e.preventDefault();
 
-            const data = response.data.find(
-                item => item.id === Number(id)
-            );
+    try {
 
-            if (data) {
-                setStaff(data);
-            }
+      setLoading(true);
 
-        } catch (error) {
-            console.log(error);
-        }
-    };
+      const token = localStorage.getItem("access");
 
-    const handleChange = (e) => {
-        setStaff({
-            ...staff,
-            [e.target.name]: e.target.value
-        });
-    };
 
-    const updateStaff = async (e) => {
+      const updateData = {
+        username: formData.username,
+        email: formData.email,
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        phone: formData.phone,
+        address: formData.address,
+        location: formData.location,
+      };
 
-        e.preventDefault();
 
-        try {
+      if (formData.password.trim()) {
 
-            const token = localStorage.getItem("access");
+        updateData.password = formData.password;
 
-            await axios.put(
-                `https://ecosmart-project.onrender.com/api/accounts/staff/${id}/update/`,
-                staff,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
+      }
 
-            alert("Staff Updated Successfully");
 
-            navigate("/staff-list");
+      await axios.patch(
 
-        } catch (error) {
+        `https://ecosmart-project.onrender.com/api/accounts/staff/${id}/update/`,
 
-            console.log(error);
+        updateData,
 
-            alert("Update Failed");
-
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
 
-    };
+      );
 
-    return (
 
-        <DashboardLayout>
+      alert("✅ Staff Updated Successfully");
 
-            <div className="bg-white shadow-xl rounded-2xl p-6">
+      navigate("/admin/staff");
 
-                <h2 className="text-3xl font-bold text-green-700 mb-6">
-                    ✏ Edit Staff
-                </h2>
 
-                <form onSubmit={updateStaff} className="space-y-4">
+    } catch (error) {
 
-                    <input
-                        className="border p-3 w-full rounded"
-                        name="username"
-                        value={staff.username || ""}
-                        onChange={handleChange}
-                        placeholder="Username"
-                    />
+      console.log(error);
 
-                    <input
-                        className="border p-3 w-full rounded"
-                        name="email"
-                        value={staff.email || ""}
-                        onChange={handleChange}
-                        placeholder="Email"
-                    />
+      if (error.response) {
 
-                    <input
-                        className="border p-3 w-full rounded"
-                        name="first_name"
-                        value={staff.first_name || ""}
-                        onChange={handleChange}
-                        placeholder="First Name"
-                    />
+        alert(
+          JSON.stringify(
+            error.response.data
+          )
+        );
 
-                    <input
-                        className="border p-3 w-full rounded"
-                        name="last_name"
-                        value={staff.last_name || ""}
-                        onChange={handleChange}
-                        placeholder="Last Name"
-                    />
+      } else {
 
-                    <input
-                        className="border p-3 w-full rounded"
-                        name="phone"
-                        value={staff.phone || ""}
-                        onChange={handleChange}
-                        placeholder="Phone"
-                    />
+        alert("Update Failed");
 
-                    <input
-                        className="border p-3 w-full rounded"
-                        name="address"
-                        value={staff.address || ""}
-                        onChange={handleChange}
-                        placeholder="Address"
-                    />
+      }
 
-                    <div className="flex gap-4">
+    } finally {
 
-                        <button
-                            type="submit"
-                            className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg"
-                        >
-                            Update Staff
-                        </button>
+      setLoading(false);
 
-                        <button
-                            type="button"
-                            onClick={() => navigate("/staff-list")}
-                            className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg"
-                        >
-                            Back
-                        </button>
+    }
 
-                    </div>
+  };
 
-                </form>
 
-            </div>
+  return (
 
-        </DashboardLayout>
+    <DashboardLayout>
 
-    );
+      <div className="
+        max-w-3xl
+        mx-auto
+        bg-white
+        shadow-xl
+        rounded-2xl
+        p-8
+      ">
+
+        <h2 className="
+          text-3xl
+          font-bold
+          text-green-700
+          mb-6
+        ">
+          ✏️ Edit Staff
+        </h2>
+
+
+        <form
+          onSubmit={handleSubmit}
+          className="
+            grid
+            grid-cols-1
+            md:grid-cols-2
+            gap-5
+          "
+        >
+
+          <input
+            type="text"
+            name="first_name"
+            placeholder="First Name"
+            value={formData.first_name}
+            onChange={handleChange}
+            className="border p-3 rounded-lg"
+          />
+
+
+          <input
+            type="text"
+            name="last_name"
+            placeholder="Last Name"
+            value={formData.last_name}
+            onChange={handleChange}
+            className="border p-3 rounded-lg"
+          />
+
+
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+            className="border p-3 rounded-lg"
+            required
+          />
+
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            className="border p-3 rounded-lg"
+            required
+          />
+
+
+          <input
+            type="text"
+            name="phone"
+            placeholder="Phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className="border p-3 rounded-lg"
+          />
+
+
+          <input
+            type="password"
+            name="password"
+            placeholder="New Password (optional)"
+            value={formData.password}
+            onChange={handleChange}
+            className="border p-3 rounded-lg"
+          />
+
+
+          <div className="md:col-span-2">
+
+            <input
+              type="text"
+              name="address"
+              placeholder="Address"
+              value={formData.address}
+              onChange={handleChange}
+              className="border p-3 rounded-lg w-full"
+            />
+
+          </div>
+
+
+          {/* ⭐ LOCATION */}
+
+          <div className="md:col-span-2">
+
+            <input
+              type="text"
+              name="location"
+              placeholder="Staff Location"
+              value={formData.location}
+              onChange={handleChange}
+              className="
+                border
+                p-3
+                rounded-lg
+                w-full
+                focus:ring-2
+                focus:ring-green-500
+                outline-none
+              "
+            />
+
+          </div>
+
+
+          <div className="md:col-span-2">
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="
+                w-full
+                bg-green-600
+                hover:bg-green-700
+                disabled:bg-gray-400
+                text-white
+                p-3
+                rounded-lg
+                font-semibold
+              "
+            >
+
+              {loading
+                ? "Updating..."
+                : "Update Staff"
+              }
+
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </DashboardLayout>
+
+  );
+
 }
+
 
 export default EditStaff;
