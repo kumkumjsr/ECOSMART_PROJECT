@@ -1,10 +1,6 @@
 from django.urls import path
 
-from .views import ProfileUpdateView
-
 from .search_views import GlobalSearchView
-from .views import ProfileUpdateView
-
 
 from .views import (
     RegisterView,
@@ -19,32 +15,25 @@ from .views import (
     UpdateStaffView,
     UpdateUserView,
     RewardView,
-    SettingsView,
-      AdminSettingsView,
-        ChangePasswordView,
-        SalaryListCreateView,
-SalaryDetailView,
-StaffSalaryView
+    AdminSettingsView,
+    ChangePasswordView,
+    SalaryListCreateView,
+    SalaryDetailView,
+    StaffSalaryView,
 )
-
-
-
 
 
 urlpatterns = [
 
-
-    # ======================
+    # =====================================================
     # AUTHENTICATION
-    # ======================
-
+    # =====================================================
 
     path(
         "register/",
         RegisterView.as_view(),
         name="register"
     ),
-
 
     path(
         "login/",
@@ -53,13 +42,9 @@ urlpatterns = [
     ),
 
 
-
-
-
-    # ======================
+    # =====================================================
     # PROFILE
-    # ======================
-
+    # =====================================================
 
     path(
         "profile/",
@@ -68,13 +53,9 @@ urlpatterns = [
     ),
 
 
-
-
-
-    # ======================
+    # =====================================================
     # DASHBOARD
-    # ======================
-
+    # =====================================================
 
     path(
         "dashboard/stats/",
@@ -83,14 +64,9 @@ urlpatterns = [
     ),
 
 
-
-
-
-
-    # ======================
-    # USER MANAGEMENT
-    # ======================
-
+    # =====================================================
+    # USERS
+    # =====================================================
 
     path(
         "users/",
@@ -98,15 +74,11 @@ urlpatterns = [
         name="user-list"
     ),
 
-
-
     path(
         "users/<int:id>/update/",
         UpdateUserView.as_view(),
         name="update-user"
     ),
-
-
 
     path(
         "users/<int:id>/delete/",
@@ -115,14 +87,9 @@ urlpatterns = [
     ),
 
 
-
-
-
-
-    # ======================
-    # STAFF MANAGEMENT
-    # ======================
-
+    # =====================================================
+    # STAFF
+    # =====================================================
 
     path(
         "create-staff/",
@@ -130,23 +97,17 @@ urlpatterns = [
         name="create-staff"
     ),
 
-
-
     path(
         "staff/",
         StaffListView.as_view(),
         name="staff-list"
     ),
 
-
-
     path(
         "staff/<int:id>/update/",
         UpdateStaffView.as_view(),
         name="update-staff"
     ),
-
-
 
     path(
         "staff/<int:id>/delete/",
@@ -155,14 +116,9 @@ urlpatterns = [
     ),
 
 
-
-
-
-
-    # ======================
+    # =====================================================
     # REWARDS
-    # ======================
-
+    # =====================================================
 
     path(
         "rewards/",
@@ -171,14 +127,9 @@ urlpatterns = [
     ),
 
 
-
-
-
-
-    # ======================
-    # GLOBAL SEARCH
-    # ======================
-
+    # =====================================================
+    # SEARCH
+    # =====================================================
 
     path(
         "search/",
@@ -186,43 +137,54 @@ urlpatterns = [
         name="global-search"
     ),
 
+
+    # =====================================================
+    # SETTINGS
+    # =====================================================
+
     path(
-    "settings/",
-    AdminSettingsView.as_view(),
-    name="admin-settings"
-),
-path(
-    "change-password/",
-    ChangePasswordView.as_view(),
-    name="change-password"
-),
-path(
-    "settings/",
-    SettingsView.as_view(),
-    name="settings"
-),
-# ==========================================
-# STAFF SALARY
-# ==========================================
+        "settings/",
+        AdminSettingsView.as_view(),
+        name="admin-settings"
+    ),
 
-path(
-    "salary/",
-    SalaryListCreateView.as_view(),
-    name="salary-list-create"
-),
 
-path(
-    "salary/<int:pk>/",
-    SalaryDetailView.as_view(),
-    name="salary-detail"
-),
-path(
-    "profile/update/",
-    ProfileUpdateView.as_view(),
-    name="profile-update"
-),
-path(
-    "staff/salary/",
-    StaffSalaryView.as_view()
-),
+    # =====================================================
+    # CHANGE PASSWORD
+    # =====================================================
+
+    path(
+        "change-password/",
+        ChangePasswordView.as_view(),
+        name="change-password"
+    ),
+
+
+    # =====================================================
+    # SALARY
+    # =====================================================
+
+    path(
+        "salary/",
+        SalaryListCreateView.as_view(),
+        name="salary-list-create"
+    ),
+
+    path(
+        "salary/<int:pk>/",
+        SalaryDetailView.as_view(),
+        name="salary-detail"
+    ),
+
+
+    # =====================================================
+    # STAFF SALARY
+    # =====================================================
+
+    path(
+        "staff/salary/",
+        StaffSalaryView.as_view(),
+        name="staff-salary"
+    ),
+
 ]

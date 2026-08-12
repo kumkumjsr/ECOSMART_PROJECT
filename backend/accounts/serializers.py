@@ -1,16 +1,11 @@
-from django.core.mail import send_mail
-from django.conf import settings
-
 from rest_framework import serializers
-from rest_framework_simplejwt.serializers import (
-    TokenObtainPairSerializer
-)
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from .models import User, Salary
 
 
 # =========================================================
-# REGISTER SERIALIZER
+# REGISTER USER SERIALIZER
 # =========================================================
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -50,9 +45,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
 
         password = attrs.get("password")
-        confirm_password = attrs.get(
-            "confirm_password"
-        )
+        confirm_password = attrs.get("confirm_password")
 
         if password != confirm_password:
 
@@ -65,14 +58,18 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
 
+        # Remove confirm password
         validated_data.pop(
-            "confirm_password"
+            "confirm_password",
+            None
         )
 
+        # Get password
         password = validated_data.pop(
             "password"
         )
 
+        # Create citizen user
         user = User.objects.create_user(
 
             username=validated_data["username"],
@@ -104,55 +101,19 @@ class RegisterSerializer(serializers.ModelSerializer):
             role=User.CITIZEN
         )
 
-        # Email should NOT break registration
-        try:
-
-            send_mail(
-
-                subject="Welcome to EcoSmart 🌱",
-
-                message=f"""
-Hello {user.first_name or user.username},
-
-Welcome to EcoSmart! 🌱
-
-Your account has been created successfully.
-
-Username:
-{user.username}
-
-Password:
-{password}
-
-Role:
-CITIZEN
-
-Thank you for joining EcoSmart Team.
-
-EcoSmart Team
-""",
-
-                from_email=settings.DEFAULT_FROM_EMAIL,
-
-                recipient_list=[
-                    user.email
-                ],
-
-                fail_silently=True
-            )
-
-        except Exception as e:
-
-            print(
-                "USER EMAIL ERROR:",
-                repr(e)
-            )
+        # IMPORTANT:
+        # Email sending removed from serializer.
+        #
+        # Render SMTP issue was causing
+        # registration to return 500.
+        #
+        # User account will be created normally.
 
         return user
 
 
 # =========================================================
-# JWT LOGIN
+# JWT LOGIN SERIALIZER
 # =========================================================
 
 class CustomTokenObtainPairSerializer(
@@ -274,47 +235,11 @@ class CreateStaffSerializer(serializers.ModelSerializer):
             role=User.WORKER
         )
 
-        # Email failure must NOT stop staff creation
-        try:
-
-            send_mail(
-
-                subject="Welcome to EcoSmart Staff Team 🌱",
-
-                message=f"""
-Hello {staff.first_name or staff.username},
-
-Welcome to EcoSmart Staff Team.
-
-Your staff account has been created successfully.
-
-Username:
-{staff.username}
-
-Password:
-{password}
-
-Role:
-WORKER
-
-EcoSmart Team
-""",
-
-                from_email=settings.DEFAULT_FROM_EMAIL,
-
-                recipient_list=[
-                    staff.email
-                ],
-
-                fail_silently=True
-            )
-
-        except Exception as e:
-
-            print(
-                "STAFF EMAIL ERROR:",
-                repr(e)
-            )
+        # IMPORTANT:
+        # Email sending removed here also.
+        #
+        # Staff creation should not fail
+        # because SMTP is unavailable on Render.
 
         return staff
 
