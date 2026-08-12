@@ -1,7 +1,7 @@
 """
 Django settings for config project.
 
-Production-ready configuration for:
+Supports:
 - Local development
 - Render deployment
 - Neon PostgreSQL
@@ -31,7 +31,20 @@ SECRET_KEY = os.environ.get(
     "django-insecure-development-only-key"
 )
 
-DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
+
+# ============================================================
+# DEBUG
+# ============================================================
+
+DEBUG = (
+    os.environ.get(
+        "DEBUG",
+        "True"
+    )
+    .strip()
+    .lower()
+    == "true"
+)
 
 
 # ============================================================
@@ -53,6 +66,8 @@ ALLOWED_HOSTS = [
 # ============================================================
 
 INSTALLED_APPS = [
+
+    # Django
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -60,9 +75,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
+    # Third-party
     "rest_framework",
     "corsheaders",
 
+    # Local apps
     "dustbin_reports",
     "tasks",
     "accounts",
@@ -75,6 +92,7 @@ INSTALLED_APPS = [
     "complaints",
 ]
 
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
@@ -83,16 +101,23 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ============================================================
 
 MIDDLEWARE = [
+
     "corsheaders.middleware.CorsMiddleware",
 
     "django.middleware.security.SecurityMiddleware",
+
     "whitenoise.middleware.WhiteNoiseMiddleware",
 
     "django.contrib.sessions.middleware.SessionMiddleware",
+
     "django.middleware.common.CommonMiddleware",
+
     "django.middleware.csrf.CsrfViewMiddleware",
+
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+
     "django.contrib.messages.middleware.MessageMiddleware",
+
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
@@ -111,14 +136,23 @@ WSGI_APPLICATION = "config.wsgi.application"
 # ============================================================
 
 TEMPLATES = [
+
     {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "BACKEND":
+            "django.template.backends.django.DjangoTemplates",
+
         "DIRS": [],
+
         "APP_DIRS": True,
+
         "OPTIONS": {
+
             "context_processors": [
+
                 "django.template.context_processors.request",
+
                 "django.contrib.auth.context_processors.auth",
+
                 "django.contrib.messages.context_processors.messages",
             ],
         },
@@ -129,35 +163,47 @@ TEMPLATES = [
 # ============================================================
 # DATABASE
 # ============================================================
-#
-# Render / Production:
-#   Uses DATABASE_URL from Render Environment Variables.
-#
-# Local:
-#   Uses DATABASE_URL if it exists.
-#   Otherwise falls back to local PostgreSQL.
-#
-# ============================================================
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
+
 if DATABASE_URL:
+
     DATABASES = {
+
         "default": dj_database_url.parse(
+
             DATABASE_URL,
+
             conn_max_age=600,
+
             ssl_require=True,
         )
     }
+
 else:
+
     DATABASES = {
+
         "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": "ecosmart_db",
-            "USER": "postgres",
-            "PASSWORD": "postgres123",
-            "HOST": "localhost",
-            "PORT": "5432",
+
+            "ENGINE":
+                "django.db.backends.postgresql",
+
+            "NAME":
+                "ecosmart_db",
+
+            "USER":
+                "postgres",
+
+            "PASSWORD":
+                "postgres123",
+
+            "HOST":
+                "localhost",
+
+            "PORT":
+                "5432",
         }
     }
 
@@ -167,29 +213,29 @@ else:
 # ============================================================
 
 AUTH_PASSWORD_VALIDATORS = [
+
     {
-        "NAME": (
+        "NAME":
             "django.contrib.auth.password_validation."
-            "UserAttributeSimilarityValidator"
-        ),
+            "UserAttributeSimilarityValidator",
     },
+
     {
-        "NAME": (
+        "NAME":
             "django.contrib.auth.password_validation."
-            "MinimumLengthValidator"
-        ),
+            "MinimumLengthValidator",
     },
+
     {
-        "NAME": (
+        "NAME":
             "django.contrib.auth.password_validation."
-            "CommonPasswordValidator"
-        ),
+            "CommonPasswordValidator",
     },
+
     {
-        "NAME": (
+        "NAME":
             "django.contrib.auth.password_validation."
-            "NumericPasswordValidator"
-        ),
+            "NumericPasswordValidator",
     },
 ]
 
@@ -221,7 +267,7 @@ STATICFILES_STORAGE = (
 
 
 # ============================================================
-# MEDIA / UPLOADED FILES
+# MEDIA FILES
 # ============================================================
 
 MEDIA_URL = "/media/"
@@ -234,8 +280,11 @@ MEDIA_ROOT = BASE_DIR / "media"
 # ============================================================
 
 REST_FRAMEWORK = {
+
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+
+        "rest_framework_simplejwt.authentication."
+        "JWTAuthentication",
     ),
 }
 
@@ -245,11 +294,17 @@ REST_FRAMEWORK = {
 # ============================================================
 
 CORS_ALLOWED_ORIGINS = [
+
     origin.strip()
+
     for origin in os.environ.get(
+
         "CORS_ALLOWED_ORIGINS",
+
         "http://localhost:5173"
+
     ).split(",")
+
     if origin.strip()
 ]
 
@@ -259,11 +314,17 @@ CORS_ALLOWED_ORIGINS = [
 # ============================================================
 
 CSRF_TRUSTED_ORIGINS = [
+
     origin.strip()
+
     for origin in os.environ.get(
+
         "CSRF_TRUSTED_ORIGINS",
+
         "http://localhost:5173"
+
     ).split(",")
+
     if origin.strip()
 ]
 
@@ -280,16 +341,23 @@ AUTH_USER_MODEL = "accounts.User"
 # ============================================================
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
 
-    "ROTATE_REFRESH_TOKENS": False,
-    "BLACKLIST_AFTER_ROTATION": False,
+    "ACCESS_TOKEN_LIFETIME":
+        timedelta(days=1),
+
+    "REFRESH_TOKEN_LIFETIME":
+        timedelta(days=30),
+
+    "ROTATE_REFRESH_TOKENS":
+        False,
+
+    "BLACKLIST_AFTER_ROTATION":
+        False,
 }
 
 
 # ============================================================
-# EMAIL CONFIGURATION
+# EMAIL
 # ============================================================
 
 EMAIL_BACKEND = (
@@ -337,3 +405,13 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
     SECURE_HSTS_PRELOAD = True
+
+else:
+
+    # Local development MUST remain HTTP
+
+    SECURE_SSL_REDIRECT = False
+
+    SESSION_COOKIE_SECURE = False
+
+    CSRF_COOKIE_SECURE = False
