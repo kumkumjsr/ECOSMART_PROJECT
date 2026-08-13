@@ -3,10 +3,11 @@ import axios from "axios";
 const BASE_URL = "https://ecosmart-project.onrender.com/api";
 
 // =======================
-// REGISTER
+// Register
 // =======================
 
 export const registerUser = async (userData) => {
+
     const response = await axios.post(
         `${BASE_URL}/accounts/register/`,
         userData
@@ -17,38 +18,24 @@ export const registerUser = async (userData) => {
 
 
 // =======================
-// LOGIN
+// Login
 // =======================
 
 export const loginUser = async (username, password) => {
 
     const response = await axios.post(
-        `${BASE_URL}/accounts/login/`,
+        `${BASE_URL}/token/`,
         {
             username,
             password,
         }
     );
 
-    localStorage.setItem(
-        "access",
-        response.data.access
-    );
-
-    localStorage.setItem(
-        "refresh",
-        response.data.refresh
-    );
-
-    localStorage.setItem(
-        "role",
-        response.data.role
-    );
-
-    localStorage.setItem(
-        "username",
-        response.data.username
-    );
+    localStorage.setItem("access", response.data.access);
+    localStorage.setItem("refresh", response.data.refresh);
+    localStorage.setItem("role", response.data.role);
+    localStorage.setItem("username", response.data.username);
 
     return response.data;
 };
+

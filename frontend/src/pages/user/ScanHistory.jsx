@@ -312,3 +312,4 @@ function ScanHistory() {
 
 
 export default ScanHistory;
+

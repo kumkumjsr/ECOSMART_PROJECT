@@ -530,3 +530,4 @@ reward.unlocked
 
 
 export default Rewards;
+

@@ -1,8 +1,693 @@
+// import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+
+// // ================= USER / COMMON =================
+
+// import WasteScanner from "./pages/WasteScanner";
+// import History from "./pages/History";
+
+// import Login from "./pages/Login";
+// import Register from "./pages/Register";
+// import Logout from "./pages/Logout";
+
+// import ProtectedRoute from "./components/ProtectedRoute";
+
+
+// // ================= ADMIN =================
+
+// import AdminDashboard from "./pages/admin/Dashboard";
+
+// import CreateStaff from "./pages/CreateStaff";
+// import EditStaff from "./pages/EditStaff";
+// import EditUser from "./pages/EditUser";
+
+// import StaffList from "./pages/StaffList";
+// import UserList from "./pages/UserList";
+
+// import Tasks from "./pages/admin/Tasks";
+// import CreateTask from "./pages/admin/CreateTask";
+// import TaskList from "./pages/admin/TaskList";
+// import TaskDetails from "./pages/admin/TaskDetails";
+// import EditTask from "./pages/admin/EditTask";
+
+// import Reports from "./pages/admin/Reports";
+// import Notifications from "./pages/admin/Notifications";
+// import Settings from "./pages/admin/Settings";
+// import Salary from "./pages/admin/Salary";
+
+// import ReportedDustbins from "./pages/admin/ReportedDustbins";
+
+// // ⭐ IMPORTANT
+// import Dustbins from "./pages/admin/Dustbins";
+
+// import Complaints from "./pages/admin/Complaints";
+
+
+// // ================= STAFF =================
+
+// import StaffDashboard from "./pages/staff/Dashboard";
+// import StaffTasks from "./pages/staff/StaffTasks";
+// import CompleteTask from "./pages/staff/CompleteTask";
+
+// import StaffSalary from "./pages/staff/Salary";
+// import StaffNotifications from "./pages/staff/Notifications";
+// import StaffProfile from "./pages/staff/Profile";
+// import StaffSettings from "./pages/staff/Settings";
+
+
+// // ================= USER =================
+
+// import UserRoutes from "./routes/UserRoutes";
+
+
+// // ================= LAYOUT =================
+
+// import DashboardLayout from "./layouts/DashboardLayout";
+
+
+// function App() {
+
+//     return (
+
+//         <BrowserRouter>
+
+//             <div className="p-5">
+
+
+//                 {/* ================================================= */}
+//                 {/* TOP NAVIGATION */}
+//                 {/* ================================================= */}
+
+//                 <nav
+//                     className="
+//                         bg-white
+//                         shadow-lg
+//                         rounded-2xl
+//                         px-6
+//                         py-4
+//                         mb-6
+//                         flex
+//                         flex-wrap
+//                         items-center
+//                         gap-4
+//                         border
+//                         border-green-100
+//                     "
+//                 >
+
+
+//                     {/* LOGO */}
+
+//                     <div
+//                         className="
+//                             flex
+//                             items-center
+//                             gap-2
+//                             mr-5
+//                             text-green-700
+//                             font-bold
+//                             text-xl
+//                         "
+//                     >
+
+//                         🌱 EcoSmart
+
+//                     </div>
+
+
+//                     {/* LOGIN */}
+
+//                     <Link
+//                         to="/login"
+//                         className="
+//                             px-4
+//                             py-2
+//                             rounded-xl
+//                             text-gray-700
+//                             hover:bg-green-100
+//                             hover:text-green-700
+//                             transition
+//                             font-medium
+//                         "
+//                     >
+
+//                         🔐 Login
+
+//                     </Link>
+
+
+//                     {/* REGISTER */}
+
+//                     <Link
+//                         to="/register"
+//                         className="
+//                             px-4
+//                             py-2
+//                             rounded-xl
+//                             text-gray-700
+//                             hover:bg-green-100
+//                             hover:text-green-700
+//                             transition
+//                             font-medium
+//                         "
+//                     >
+
+//                         📝 Register
+
+//                     </Link>
+
+
+//                     {/* LOGOUT */}
+
+//                     <div className="ml-auto">
+
+//                         <Logout />
+
+//                     </div>
+
+
+//                 </nav>
+
+
+//                 {/* ================================================= */}
+//                 {/* ROUTES */}
+//                 {/* ================================================= */}
+
+//                 <Routes>
+
+
+//                     {/* ================================================= */}
+//                     {/* AUTH */}
+//                     {/* ================================================= */}
+
+
+//                     <Route
+//                         path="/login"
+//                         element={<Login />}
+//                     />
+
+
+//                     <Route
+//                         path="/register"
+//                         element={<Register />}
+//                     />
+
+
+
+//                     {/* ================================================= */}
+//                     {/* USER COMMON SCANNER */}
+//                     {/* ================================================= */}
+
+
+//                     <Route
+//                         path="/"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <WasteScanner />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                     <Route
+//                         path="/history"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <History />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+
+//                     {/* ================================================= */}
+//                     {/* ADMIN DASHBOARD */}
+//                     {/* ================================================= */}
+
+
+//                     <Route
+//                         path="/admin"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <AdminDashboard />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                     {/* ================================================= */}
+//                     {/* ADMIN STAFF */}
+//                     {/* ================================================= */}
+
+
+//                     <Route
+//                         path="/admin/staff"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <StaffList />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                     <Route
+//                         path="/admin/staff/create"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <CreateStaff />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                     <Route
+//                         path="/admin/staff/edit/:id"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <EditStaff />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+
+//                     {/* ================================================= */}
+//                     {/* ADMIN USERS */}
+//                     {/* ================================================= */}
+
+
+//                     <Route
+//                         path="/admin/users"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <UserList />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                     <Route
+//                         path="/admin/users/edit/:id"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <EditUser />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+
+//                     {/* ================================================= */}
+//                     {/* ADMIN TASKS */}
+//                     {/* ================================================= */}
+
+
+//                     <Route
+//                         path="/admin/tasks"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <TaskList />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                     <Route
+//                         path="/admin/tasks/create"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <CreateTask />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                     <Route
+//                         path="/admin/tasks/:id"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <TaskDetails />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                     <Route
+//                         path="/admin/tasks/edit/:id"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <EditTask />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+
+//                     {/* ================================================= */}
+//                     {/* ADMIN REPORTS */}
+//                     {/* ================================================= */}
+
+
+//                     <Route
+//                         path="/admin/reports"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <Reports />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+
+//                     {/* ================================================= */}
+//                     {/* ADMIN NOTIFICATIONS */}
+//                     {/* ================================================= */}
+
+
+//                     <Route
+//                         path="/admin/notifications"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <Notifications />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+
+//                     {/* ================================================= */}
+//                     {/* ADMIN SETTINGS */}
+//                     {/* ================================================= */}
+
+
+//                     <Route
+//                         path="/admin/settings"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <DashboardLayout>
+
+//                                     <Settings />
+
+//                                 </DashboardLayout>
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+
+//                     {/* ================================================= */}
+//                     {/* ADMIN SALARY */}
+//                     {/* ================================================= */}
+
+
+//                     <Route
+//                         path="/admin/salary"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <Salary />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+
+//                     {/* ================================================= */}
+//                     {/* ADMIN REPORTED DUSTBINS */}
+//                     {/* ================================================= */}
+
+
+//                     <Route
+//                         path="/admin/reported-dustbins"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <ReportedDustbins />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+
+//                     {/* ================================================= */}
+//                     {/* ⭐ ADMIN DUSTBINS */}
+//                     {/* ================================================= */}
+
+
+//                     <Route
+//                         path="/admin/dustbins"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <Dustbins />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+
+//                     {/* ================================================= */}
+//                     {/* ADMIN COMPLAINTS */}
+//                     {/* ================================================= */}
+
+
+//                     <Route
+//                         path="/admin/complaints"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <Complaints />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+
+//                     {/* ================================================= */}
+//                     {/* STAFF */}
+//                     {/* ================================================= */}
+
+
+//                     <Route
+//                         path="/staff"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <StaffDashboard />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                     <Route
+//                         path="/staff/dashboard"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <StaffDashboard />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                     <Route
+//                         path="/staff/tasks"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <StaffTasks />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                     <Route
+//                         path="/staff/tasks/:id/complete"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <CompleteTask />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                     <Route
+//                         path="/staff/salary"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <StaffSalary />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                     <Route
+//                         path="/staff/profile"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <StaffProfile />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                     <Route
+//                         path="/staff/settings"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <StaffSettings />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                     <Route
+//                         path="/staff/notifications"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <StaffNotifications />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+
+//                     {/* ================================================= */}
+//                     {/* USER PANEL */}
+//                     {/* ================================================= */}
+
+
+//                     <Route
+//                         path="/user/*"
+//                         element={
+
+//                             <ProtectedRoute>
+
+//                                 <UserRoutes />
+
+//                             </ProtectedRoute>
+
+//                         }
+//                     />
+
+
+//                 </Routes>
+
+//             </div>
+
+//         </BrowserRouter>
+
+//     );
+// }
+
+
+// export default App;
+
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
-// =====================================================
-// COMMON
-// =====================================================
+
+// ================= COMMON =================
 
 import WasteScanner from "./pages/WasteScanner";
 import History from "./pages/History";
@@ -13,24 +698,19 @@ import Logout from "./pages/Logout";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
-// =====================================================
-// ADMIN LAYOUT
-// =====================================================
+
+// ================= ADMIN =================
 
 import AdminLayout from "./layouts/AdminLayout";
-
-// =====================================================
-// ADMIN PAGES
-// =====================================================
 
 import AdminDashboard from "./pages/admin/Dashboard";
 
 import CreateStaff from "./pages/CreateStaff";
 import EditStaff from "./pages/EditStaff";
-import StaffList from "./pages/StaffList";
-
-import UserList from "./pages/UserList";
 import EditUser from "./pages/EditUser";
+
+import StaffList from "./pages/StaffList";
+import UserList from "./pages/UserList";
 
 import TaskList from "./pages/admin/TaskList";
 import TaskDetails from "./pages/admin/TaskDetails";
@@ -46,9 +726,8 @@ import ReportedDustbins from "./pages/admin/ReportedDustbins";
 import Dustbins from "./pages/admin/Dustbins";
 import Complaints from "./pages/admin/Complaints";
 
-// =====================================================
-// STAFF
-// =====================================================
+
+// ================= STAFF =================
 
 import StaffDashboard from "./pages/staff/Dashboard";
 import StaffTasks from "./pages/staff/StaffTasks";
@@ -59,16 +738,16 @@ import StaffNotifications from "./pages/staff/Notifications";
 import StaffProfile from "./pages/staff/Profile";
 import StaffSettings from "./pages/staff/Settings";
 
-// =====================================================
-// USER
-// =====================================================
+
+// ================= USER =================
 
 import UserRoutes from "./routes/UserRoutes";
 
 
-// =====================================================
-// APP
-// =====================================================
+// ================= OTHER LAYOUT =================
+
+import DashboardLayout from "./layouts/DashboardLayout";
+
 
 function App() {
 
@@ -76,33 +755,31 @@ function App() {
 
         <BrowserRouter>
 
-            <div className="min-h-screen bg-gray-50">
+            {/* ================================================= */}
+            {/* COMMON NAVIGATION */}
+            {/* ================================================= */}
 
-                {/* ================================================= */}
-                {/* COMMON NAVIGATION */}
-                {/* ================================================= */}
+            <div className="p-5">
 
                 <nav
                     className="
                         bg-white
                         shadow-lg
+                        rounded-2xl
                         px-6
                         py-4
                         flex
                         flex-wrap
                         items-center
                         gap-4
-                        border-b
+                        border
                         border-green-100
                     "
                 >
 
-                    {/* ================================================= */}
                     {/* LOGO */}
-                    {/* ================================================= */}
 
-                    <Link
-                        to="/"
+                    <div
                         className="
                             flex
                             items-center
@@ -116,12 +793,10 @@ function App() {
 
                         🌱 EcoSmart
 
-                    </Link>
+                    </div>
 
 
-                    {/* ================================================= */}
                     {/* LOGIN */}
-                    {/* ================================================= */}
 
                     <Link
                         to="/login"
@@ -142,9 +817,7 @@ function App() {
                     </Link>
 
 
-                    {/* ================================================= */}
                     {/* REGISTER */}
-                    {/* ================================================= */}
 
                     <Link
                         to="/register"
@@ -165,9 +838,7 @@ function App() {
                     </Link>
 
 
-                    {/* ================================================= */}
                     {/* LOGOUT */}
-                    {/* ================================================= */}
 
                     <div className="ml-auto">
 
@@ -184,8 +855,9 @@ function App() {
 
                 <Routes>
 
+
                     {/* ================================================= */}
-                    {/* AUTHENTICATION */}
+                    {/* AUTH */}
                     {/* ================================================= */}
 
                     <Route
@@ -193,22 +865,28 @@ function App() {
                         element={<Login />}
                     />
 
+
                     <Route
                         path="/register"
                         element={<Register />}
                     />
 
 
+
                     {/* ================================================= */}
-                    {/* COMMON WASTE SCANNER */}
+                    {/* COMMON USER SCANNER */}
                     {/* ================================================= */}
 
                     <Route
                         path="/"
                         element={
+
                             <ProtectedRoute>
+
                                 <WasteScanner />
+
                             </ProtectedRoute>
+
                         }
                     />
 
@@ -216,11 +894,16 @@ function App() {
                     <Route
                         path="/history"
                         element={
+
                             <ProtectedRoute>
+
                                 <History />
+
                             </ProtectedRoute>
+
                         }
                     />
+
 
 
                     {/* ================================================= */}
@@ -230,15 +913,17 @@ function App() {
                     <Route
                         path="/admin"
                         element={
+
                             <ProtectedRoute>
+
                                 <AdminLayout />
+
                             </ProtectedRoute>
+
                         }
                     >
 
-                        {/* ----------------------------------------- */}
-                        {/* ADMIN DASHBOARD */}
-                        {/* ----------------------------------------- */}
+                        {/* DASHBOARD */}
 
                         <Route
                             index
@@ -246,14 +931,13 @@ function App() {
                         />
 
 
-                        {/* ----------------------------------------- */}
                         {/* USERS */}
-                        {/* ----------------------------------------- */}
 
                         <Route
                             path="users"
                             element={<UserList />}
                         />
+
 
                         <Route
                             path="users/edit/:id"
@@ -261,19 +945,19 @@ function App() {
                         />
 
 
-                        {/* ----------------------------------------- */}
                         {/* STAFF */}
-                        {/* ----------------------------------------- */}
 
                         <Route
                             path="staff"
                             element={<StaffList />}
                         />
 
+
                         <Route
                             path="staff/create"
                             element={<CreateStaff />}
                         />
+
 
                         <Route
                             path="staff/edit/:id"
@@ -281,24 +965,25 @@ function App() {
                         />
 
 
-                        {/* ----------------------------------------- */}
                         {/* TASKS */}
-                        {/* ----------------------------------------- */}
 
                         <Route
                             path="tasks"
                             element={<TaskList />}
                         />
 
+
                         <Route
                             path="tasks/create"
                             element={<CreateTask />}
                         />
 
+
                         <Route
                             path="tasks/:id"
                             element={<TaskDetails />}
                         />
+
 
                         <Route
                             path="tasks/edit/:id"
@@ -306,9 +991,7 @@ function App() {
                         />
 
 
-                        {/* ----------------------------------------- */}
                         {/* REPORTS */}
-                        {/* ----------------------------------------- */}
 
                         <Route
                             path="reports"
@@ -316,9 +999,7 @@ function App() {
                         />
 
 
-                        {/* ----------------------------------------- */}
                         {/* NOTIFICATIONS */}
-                        {/* ----------------------------------------- */}
 
                         <Route
                             path="notifications"
@@ -326,9 +1007,7 @@ function App() {
                         />
 
 
-                        {/* ----------------------------------------- */}
                         {/* SETTINGS */}
-                        {/* ----------------------------------------- */}
 
                         <Route
                             path="settings"
@@ -336,9 +1015,7 @@ function App() {
                         />
 
 
-                        {/* ----------------------------------------- */}
                         {/* SALARY */}
-                        {/* ----------------------------------------- */}
 
                         <Route
                             path="salary"
@@ -346,9 +1023,7 @@ function App() {
                         />
 
 
-                        {/* ----------------------------------------- */}
                         {/* REPORTED DUSTBINS */}
-                        {/* ----------------------------------------- */}
 
                         <Route
                             path="reported-dustbins"
@@ -356,9 +1031,7 @@ function App() {
                         />
 
 
-                        {/* ----------------------------------------- */}
                         {/* DUSTBINS */}
-                        {/* ----------------------------------------- */}
 
                         <Route
                             path="dustbins"
@@ -366,9 +1039,7 @@ function App() {
                         />
 
 
-                        {/* ----------------------------------------- */}
                         {/* COMPLAINTS */}
-                        {/* ----------------------------------------- */}
 
                         <Route
                             path="complaints"
@@ -378,16 +1049,21 @@ function App() {
                     </Route>
 
 
+
                     {/* ================================================= */}
-                    {/* STAFF PANEL */}
+                    {/* STAFF */}
                     {/* ================================================= */}
 
                     <Route
                         path="/staff"
                         element={
+
                             <ProtectedRoute>
+
                                 <StaffDashboard />
+
                             </ProtectedRoute>
+
                         }
                     />
 
@@ -395,23 +1071,27 @@ function App() {
                     <Route
                         path="/staff/dashboard"
                         element={
+
                             <ProtectedRoute>
+
                                 <StaffDashboard />
+
                             </ProtectedRoute>
+
                         }
                     />
 
 
-                    {/* ----------------------------------------- */}
-                    {/* STAFF TASKS */}
-                    {/* ----------------------------------------- */}
-
                     <Route
                         path="/staff/tasks"
                         element={
+
                             <ProtectedRoute>
+
                                 <StaffTasks />
+
                             </ProtectedRoute>
+
                         }
                     />
 
@@ -419,67 +1099,72 @@ function App() {
                     <Route
                         path="/staff/tasks/:id/complete"
                         element={
+
                             <ProtectedRoute>
+
                                 <CompleteTask />
+
                             </ProtectedRoute>
+
                         }
                     />
 
-
-                    {/* ----------------------------------------- */}
-                    {/* STAFF SALARY */}
-                    {/* ----------------------------------------- */}
 
                     <Route
                         path="/staff/salary"
                         element={
+
                             <ProtectedRoute>
+
                                 <StaffSalary />
+
                             </ProtectedRoute>
+
                         }
                     />
 
-
-                    {/* ----------------------------------------- */}
-                    {/* STAFF PROFILE */}
-                    {/* ----------------------------------------- */}
 
                     <Route
                         path="/staff/profile"
                         element={
+
                             <ProtectedRoute>
+
                                 <StaffProfile />
+
                             </ProtectedRoute>
+
                         }
                     />
 
-
-                    {/* ----------------------------------------- */}
-                    {/* STAFF SETTINGS */}
-                    {/* ----------------------------------------- */}
 
                     <Route
                         path="/staff/settings"
                         element={
+
                             <ProtectedRoute>
+
                                 <StaffSettings />
+
                             </ProtectedRoute>
+
                         }
                     />
 
-
-                    {/* ----------------------------------------- */}
-                    {/* STAFF NOTIFICATIONS */}
-                    {/* ----------------------------------------- */}
 
                     <Route
                         path="/staff/notifications"
                         element={
+
                             <ProtectedRoute>
+
                                 <StaffNotifications />
+
                             </ProtectedRoute>
+
                         }
                     />
+
 
 
                     {/* ================================================= */}
@@ -489,62 +1174,27 @@ function App() {
                     <Route
                         path="/user/*"
                         element={
+
                             <ProtectedRoute>
+
                                 <UserRoutes />
+
                             </ProtectedRoute>
+
                         }
                     />
 
-
-                    {/* ================================================= */}
-                    {/* 404 PAGE */}
-                    {/* ================================================= */}
-
-                    <Route
-                        path="*"
-                        element={
-                            <div className="min-h-[70vh] flex items-center justify-center">
-
-                                <div className="text-center">
-
-                                    <h1 className="text-6xl font-bold text-green-700">
-                                        404
-                                    </h1>
-
-                                    <p className="text-gray-600 mt-3">
-                                        Page not found
-                                    </p>
-
-                                    <Link
-                                        to="/"
-                                        className="
-                                            inline-block
-                                            mt-5
-                                            bg-green-600
-                                            hover:bg-green-700
-                                            text-white
-                                            px-6
-                                            py-3
-                                            rounded-xl
-                                            font-semibold
-                                        "
-                                    >
-                                        Go Home
-                                    </Link>
-
-                                </div>
-
-                            </div>
-                        }
-                    />
 
                 </Routes>
 
             </div>
 
         </BrowserRouter>
+
     );
+
 }
 
 
 export default App;
+

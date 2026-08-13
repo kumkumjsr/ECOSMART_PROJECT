@@ -181,3 +181,4 @@ function WasteScanner() {
 
 
 export default WasteScanner;
+

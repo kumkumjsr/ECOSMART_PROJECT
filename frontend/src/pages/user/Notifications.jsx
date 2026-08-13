@@ -428,3 +428,4 @@ Waste Scan Reward
 
 
 export default Notifications;
+

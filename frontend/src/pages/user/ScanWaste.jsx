@@ -569,3 +569,4 @@ Keep saving Earth 🌍
 
 
 export default ScanWaste;
+

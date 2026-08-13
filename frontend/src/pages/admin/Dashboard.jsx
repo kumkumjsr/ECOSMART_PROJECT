@@ -1926,3 +1926,4 @@ data.recent_scans.map(scan=>(
 
 
 export default AdminDashboard;
+

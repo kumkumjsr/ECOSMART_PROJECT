@@ -42,3 +42,4 @@ export const getWasteHistory = async () => {
 
   return response.data;
 };
+
